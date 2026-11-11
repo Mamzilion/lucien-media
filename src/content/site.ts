@@ -9,7 +9,7 @@ export const config = {
   name: "Lucien Billong",
   role: "Media Buyer & formateur Meta Ads / Google Ads",
   // Numéro WhatsApp au format international, sans + ni espaces. À REMPLACER.
-  whatsappNumber: "33600000000",
+  whatsappNumber: "33648681527",
   // Lien Calendly (ou Cal.com) pour l'appel découverte. Laisse vide pour utiliser
   // le formulaire qui envoie la demande sur WhatsApp. Peut aussi être défini via
   // la variable d'environnement NEXT_PUBLIC_BOOKING_URL sur Vercel.
