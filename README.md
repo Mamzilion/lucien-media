@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Site — Lucien Billong (Media Buyer & formateur Meta Ads / Google Ads)
 
-## Getting Started
+Landing page Next.js 15 + Tailwind CSS 4, thème clair/sombre, prête pour Vercel.
 
-First, run the development server:
+## Lancer en local
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ouvre http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Personnaliser
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Tout le contenu est dans **`src/content/site.ts`** :
 
-## Learn More
+- `config.whatsappNumber` : numéro WhatsApp de Lucien (format international sans `+`, ex. `237690000000`).
+- `config.email`, `config.photo` (mettre la photo dans `/public`, ex. `/lucien.jpg`).
+- `formation.offers` : prix des offres.
+- `results` : remplacer les témoignages d'exemple par de vrais avis (avec accord des élèves), puis passer `isExample` à `false`.
 
-To learn more about Next.js, take a look at the following resources:
+Les couleurs sont dans `src/app/globals.css` (variables `--accent`, `--deep`, etc.).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Variables d'environnement (Vercel → Settings → Environment Variables)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Variable | Rôle |
+| --- | --- |
+| `NEXT_PUBLIC_BOOKING_URL` | Lien Calendly / Cal.com. Si défini, le calendrier s'affiche à la place du formulaire WhatsApp. |
+| `NEXT_PUBLIC_GUIDE_URL` | Lien du guide gratuit (PDF, Notion…), affiché après l'inscription. |
+| `LEAD_WEBHOOK_URL` | Webhook (Make, Zapier, n8n, Google Apps Script) qui reçoit les contacts. Sans lui, les contacts apparaissent dans les logs Vercel. |
 
-## Deploy on Vercel
+## Déployer sur Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Pousser le dossier sur un dépôt GitHub.
+2. Sur vercel.com : **Add New → Project**, importer le dépôt (Next.js est détecté automatiquement).
+3. Ajouter les variables d'environnement, puis **Deploy**.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Structure
+
+```
+src/
+  app/
+    layout.tsx        # polices, métadonnées SEO, script du thème
+    page.tsx          # assemblage des sections
+    globals.css       # couleurs, animations
+    api/lead/route.ts # réception des inscriptions
+  components/
+    Navbar.tsx        # navigation + bascule clair/sombre
+    Sections.tsx      # hero, histoire, métier, formation, résultats, méthode, footer
+    Interactive.tsx   # guide gratuit, FAQ, appel découverte, bouton WhatsApp
+    ui.tsx            # composants réutilisables
+  content/site.ts     # TOUT le contenu
+```
